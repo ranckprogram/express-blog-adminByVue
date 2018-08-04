@@ -1,0 +1,16 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/*基础*/
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+
+.table-space {
+  margin-bottom: 20px;
+}
