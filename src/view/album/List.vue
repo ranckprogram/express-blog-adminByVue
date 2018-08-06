@@ -1,19 +1,18 @@
 <template>
   <div class="Album">
-    Album
     <Card>
       <div slot="title">
         <Row style="height: 36px">
           <Col span="24">
           <div class="fr">
-            <Input v-model="search.word" placeholder="Enter something..." style="width: 300px"/>
-            <Button type="primary">Primary</Button>
+            <Input v-model="search.keywords" placeholder="Enter something..." style="width: 300px"/>
+            <Button type="primary" @click="handleSearch">Search</Button>
           </div>
           </Col>
         </Row>
       </div>
       <Table border :columns="columns" :data="list" class="table-space"></Table>
-      <Page :total="total" size="small" show-elevator show-sizer />
+      <Page :total="total" size="small" show-elevator show-sizer @on-change="handlePageChange" @on-page-size-change="handleLimitChange"/>
     </Card>
   </div>
 </template>
@@ -27,16 +26,16 @@ export default {
       search: {
         limit: 10,
         page: 1,
-        word: ''
+        keywords: ''
       },
       columns: [
         {
           title: '相册名',
-          key: 'album_name'
+          key: 'name'
         },
         {
           title: '相册描述',
-          key: 'age'
+          key: 'describe'
         },
         {
           title: '喜欢人数',
@@ -64,7 +63,7 @@ export default {
           }
         }
       ],
-      list: [{}]
+      list: []
     }
   },
   created () {
@@ -72,12 +71,23 @@ export default {
   },
   methods: {
     getList () {
-      console.dir(11)
       albumApi.getAlbumList(this.search).then(res => {
-        console.dir(res)
+        this.list = res.data.data
+        this.total = res.data.meta.total
       }, err => {
         console.dir(err)
       })
+    },
+    handleSearch () {
+      this.getList()
+    },
+    handlePageChange (page) {
+      this.search.page = page
+      this.getList()
+    },
+    handleLimitChange (limit) {
+      this.search.limit = limit
+      this.getList()
     }
   }
 }
