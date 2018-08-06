@@ -16,19 +16,23 @@ export default new Router({
       component: resolve => require(['@/view/layout/Menu'], resolve),
       children: [
         {
-          path: '/dashboard',
+          path: 'dashboard',
           name: 'Dashboard',
           component: resolve => require(['@/view/dashboard'], resolve)
         }, {
-          path: '/article',
+          path: 'article',
           name: 'Article',
           component: resolve => require(['@/view/article/List'], resolve)
         }, {
-          path: '/album',
+          path: 'album',
           name: 'Album',
           component: resolve => require(['@/view/album/List'], resolve)
         }, {
-          path: '/about',
+          path: 'album/detail/:id',
+          name: 'AlbumDetail',
+          component: resolve => require(['@/view/album/Detail'], resolve)
+        }, {
+          path: 'about',
           name: 'About',
           component: resolve => require(['@/view/about'], resolve)
         }

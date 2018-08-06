@@ -14,6 +14,10 @@ module.exports = {
       '/v1': {
         target: 'http://api.ranck.com:3000/',//设置你调用的接口域名和端口号 别忘了加http
         changeOrigin: true
+      },
+      '/upload': {
+        target: 'http://api.ranck.com:3000/',
+        changeOrigin: true
       }
     },
 

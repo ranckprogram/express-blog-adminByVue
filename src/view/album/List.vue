@@ -13,6 +13,7 @@
       </div>
       <Table border :columns="columns" :data="list" class="table-space"></Table>
       <Page :total="total" size="small" show-elevator show-sizer @on-change="handlePageChange" @on-page-size-change="handleLimitChange"/>
+      <router-view></router-view>
     </Card>
   </div>
 </template>
@@ -51,6 +52,11 @@ export default {
                 props: {
                   type: 'text',
                   size: 'small'
+                },
+                on: {
+                  click: () => {
+                    this.handleView(params.row.id)
+                  }
                 }
               }, 'View'),
               h('Button', {
@@ -75,7 +81,7 @@ export default {
         this.list = res.data.data
         this.total = res.data.meta.total
       }, err => {
-        console.dir(err)
+        this.$Message.error(err)
       })
     },
     handleSearch () {
@@ -88,6 +94,10 @@ export default {
     handleLimitChange (limit) {
       this.search.limit = limit
       this.getList()
+    },
+    handleView (id) {
+      console.dir(id)
+      this.$router.push({name: 'AlbumDetail', params: {id: id}})
     }
   }
 }
