@@ -32,6 +32,14 @@ export default new Router({
           name: 'AlbumDetail',
           component: resolve => require(['@/view/album/Detail'], resolve)
         }, {
+          path: 'album/edit/:id',
+          name: 'AlbumEdit',
+          component: resolve => require(['@/view/album/Add'], resolve)
+        },{
+          path: 'album/add',
+          name: 'AlbumAdd',
+          component: resolve => require(['@/view/album/Add'], resolve)
+        }, {
           path: 'about',
           name: 'About',
           component: resolve => require(['@/view/about'], resolve)

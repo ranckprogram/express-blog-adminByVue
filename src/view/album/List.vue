@@ -7,6 +7,7 @@
           <div class="fr">
             <Input v-model="search.keywords" placeholder="Enter something..." style="width: 300px"/>
             <Button type="primary" @click="handleSearch">Search</Button>
+            <Button type="primary" @click="handleAdd">Add</Button>
           </div>
           </Col>
         </Row>
@@ -58,13 +59,18 @@ export default {
                     this.handleView(params.row.id)
                   }
                 }
-              }, 'View'),
+              }, '查看'),
               h('Button', {
                 props: {
                   type: 'text',
                   size: 'small'
+                },
+                on: {
+                  click: () => {
+                    this.handleEdit(params.row.id)
+                  }
                 }
-              }, 'Edit')
+              }, '编辑')
             ])
           }
         }
@@ -87,6 +93,9 @@ export default {
     handleSearch () {
       this.getList()
     },
+    handleAdd () {
+      this.$router.push({name: 'AlbumAdd'})
+    },
     handlePageChange (page) {
       this.search.page = page
       this.getList()
@@ -96,8 +105,10 @@ export default {
       this.getList()
     },
     handleView (id) {
-      console.dir(id)
       this.$router.push({name: 'AlbumDetail', params: {id: id}})
+    },
+    handleEdit (id) {
+      this.$router.push({name: 'AlbumEdit', params: {id: id}})
     }
   }
 }

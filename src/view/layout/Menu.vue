@@ -66,7 +66,7 @@
 export default {
   data () {
     return {
-      theme: 'dark' // 这里的menu列表我在考虑用路由生成
+      theme: 'primary' // 这里的menu列表我在考虑用路由生成
     }
   },
   created () {
