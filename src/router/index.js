@@ -35,7 +35,7 @@ export default new Router({
           path: 'album/edit/:id',
           name: 'AlbumEdit',
           component: resolve => require(['@/view/album/Add'], resolve)
-        },{
+        }, {
           path: 'album/add',
           name: 'AlbumAdd',
           component: resolve => require(['@/view/album/Add'], resolve)
