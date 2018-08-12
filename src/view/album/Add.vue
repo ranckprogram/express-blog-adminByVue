@@ -19,7 +19,7 @@
       <Upload action="/v1/upload" :on-success="handleUpload">
         <Button icon="ios-cloud-upload-outline">Upload files</Button>
       </Upload>
-      <Table :columns="columns" :data="dataForm.srcList"></Table>
+      <Table :columns="columns" :data="srcList"></Table>
     </Card>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
           render: (h, params) => {
             return h('img', {
               attrs: {
-                src: params.row.src,
+                src: params.row.fullpath,
                 width: '300px'
               }
             })
@@ -67,8 +67,9 @@ export default {
       dataForm: {
         name: '',
         describe: '',
-        srcList: []
-      }
+        fileIdList: []
+      },
+      srcList: []
     }
   },
   computed: {
@@ -93,6 +94,7 @@ export default {
       }
       albumApi.createAlbum(params).then(res => {
         this.$Message.success(res.data.data.message)
+        // 成功后应该跳转到详情 temp
       }, err => {
         this.$Message.error(err)
       })
@@ -109,9 +111,10 @@ export default {
       console.dir(id)
     },
     handleUpload (response, file, fileList) {
-      this.dataForm.srcList.push({
+      this.dataForm.fileIdList.push(response.data.id)
+      this.srcList.push({
         id: response.data.id,
-        src: response.data.fullPath
+        fullpath: response.data.fullPath
       })
     }
   }
