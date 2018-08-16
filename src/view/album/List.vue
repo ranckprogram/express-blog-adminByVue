@@ -4,17 +4,16 @@
       <div slot="title">
         <Row style="height: 36px">
           <Col span="24">
-          <div class="fr">
-            <Input v-model="search.keywords" placeholder="Enter something..." style="width: 300px"/>
-            <Button type="primary" @click="handleSearch">Search</Button>
-            <Button type="primary" @click="handleAdd">Add</Button>
-          </div>
+            <div class="fr">
+              <Input v-model="search.keywords" placeholder="Enter something..." style="width: 300px"/>
+              <Button type="primary" @click="handleSearch">Search</Button>
+             <Button type="primary" @click="handleAdd">Add</Button>
+            </div>
           </Col>
         </Row>
       </div>
       <Table border :columns="columns" :data="list" class="table-space"></Table>
       <Page :total="total" size="small" show-elevator show-sizer @on-change="handlePageChange" @on-page-size-change="handleLimitChange"/>
-      <router-view></router-view>
     </Card>
   </div>
 </template>

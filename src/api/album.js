@@ -10,6 +10,9 @@ export default {
     return axios.get(`${params.base_url}/album/${id}`)
   },
   createAlbum (param) {
-    return axios.post(`${params.base_url}/album/add`, param)
+    return axios.post(`${params.base_url}/album`, param)
+  },
+  updateAlbum (id, param) {
+    return axios.put(`${params.base_url}/album/${id}`, param)
   }
 }

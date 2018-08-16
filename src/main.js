@@ -7,6 +7,16 @@ import router from './router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import '@/assets/css/index.css'
+
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor /* { default global options } */)
+
 Vue.prototype.$axios = axios
 
 Vue.use(iView, {

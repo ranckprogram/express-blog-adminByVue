@@ -16,3 +16,7 @@
 .table-space {
   margin-bottom: 20px;
 }
+
+#app .ivu-form-item{
+  height: 32px;
+}

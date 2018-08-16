@@ -2,6 +2,11 @@
   <div class="AlbumDetail">
     <Card>
       <div slot="title">
+        <Row style="height: 40px">
+          <Col span="24">
+            <Button type="primary" @click="$router.back()" class="fr">返回</Button>
+          </Col>
+        </Row>
         <Form :label-width="80">
           <FormItem label="名称">
             <span>{{data.name}}</span>
@@ -31,7 +36,7 @@ export default {
           render: (h, params) => {
             return h('img', {
               attrs: {
-                src: params.row.src,
+                src: params.row.path,
                 width: '300px'
               }
             })
