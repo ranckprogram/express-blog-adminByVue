@@ -7,14 +7,14 @@
       <FormItem label="摘要">
         <Input v-model="about.summary" placeholder="Enter something..."></Input>
       </FormItem>
-      <FormItem label="头像">
-        <Input v-model="about.avatar" placeholder="Enter something..."></Input>
+      <FormItem label="头像" style="height:auto">
+        <UploadFile @success="handleUploadAvatarSuccess"></UploadFile>
       </FormItem>
-      <FormItem label="微信">
-        <Input v-model="about.follow" placeholder="Enter something..."></Input>
+      <FormItem label="微信" style="height:auto">
+        <UploadFile @success="handleUploadWeixinSuccess"></UploadFile>
       </FormItem>
       <FormItem label="内容" style="height: auto">
-        <quill-editor model="about.content"
+        <quill-editor v-model="about.content"
                       :options="editorOption">
         </quill-editor>
       </FormItem>
@@ -27,7 +27,11 @@
 </template>
 <script>
 import aboutApi from '@/api/about'
+import UploadFile from '@/components/UploadFile'
 export default {
+  components: {
+    UploadFile
+  },
   data () {
     return {
       about: {
@@ -54,11 +58,17 @@ export default {
       for (var attr in this.about) {
         params.append(attr, this.about[attr])
       }
-      aboutApi.updateAbout(params).then(res => {
-        this.$Message.success('ok')
+      aboutApi.updateAbout(params).then(_ => {
+        this.$Message.success('保存成功')
       }, err => {
         this.$Message.error(err)
       })
+    },
+    handleUploadAvatarSuccess (file) {
+      this.about.avatar_id = file.data.id
+    },
+    handleUploadWeixinSuccess (file) {
+      this.about.follow_id = file.data.id
     }
   }
 }
