@@ -39,7 +39,7 @@
           <Icon type="ios-paper"/>
           管理中心
         </MenuItem>
-        <MenuItem name="ArticleType">
+        <MenuItem name="CategoryList">
           <Icon type="ios-paper"/>
           日志类型
         </MenuItem>

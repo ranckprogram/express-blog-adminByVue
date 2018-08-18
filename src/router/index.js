@@ -20,6 +20,10 @@ export default new Router({
           name: 'Dashboard',
           component: resolve => require(['@/view/dashboard'], resolve)
         }, {
+          path: 'category',
+          name: 'CategoryList',
+          component: resolve => require(['@/view/category/List'], resolve)
+        }, {
           path: 'article',
           name: 'Article',
           component: resolve => require(['@/view/article/List'], resolve)
