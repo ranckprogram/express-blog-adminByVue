@@ -16,21 +16,14 @@
   </div>
 </template>
 <script>
+import articleApi from '@/api/article'
 export default {
   data () {
     return {
       columns: [
         {
-          title: '相册名',
+          title: '类型名',
           key: 'name'
-        },
-        {
-          title: '相册描述',
-          key: 'describe'
-        },
-        {
-          title: '喜欢人数',
-          key: 'like'
         },
         {
           title: '操作',
@@ -38,17 +31,6 @@ export default {
           width: 120,
           render: (h, params) => {
             return h('div', [
-              h('Button', {
-                props: {
-                  type: 'text',
-                  size: 'small'
-                },
-                on: {
-                  click: () => {
-                    this.handleView(params.row.id)
-                  }
-                }
-              }, '查看'),
               h('Button', {
                 props: {
                   type: 'text',
@@ -67,8 +49,38 @@ export default {
       list: []
     }
   },
+  created () {
+    this.getList()
+  },
   methods: {
-    handleAdd () {},
+    getList () {
+      articleApi.getCategoryList().then(res => {
+        this.list = res.data.data
+      }, err => {
+        this.$Message.error(err)
+      })
+    },
+    handleAdd () {
+      this.$Modal.confirm({
+        render: (h) => {
+          return h('Input', {
+            props: {
+              value: this.value,
+              autofocus: true,
+              placeholder: '请输入新分类名字'
+            }
+          })
+        },
+        onOk: () => {
+          articleApi.getCategoryList().then(res => {
+          })
+          this.$Message.info('Clicked ok')
+        },
+        onCancel: () => {
+          this.$Message.info('取消')
+        }
+      })
+    },
     handleSave () {},
     handleDel (id) {}
   }
