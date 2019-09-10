@@ -20,7 +20,14 @@ import articleApi from '@/api/article'
 export default {
   data () {
     return {
+      value: '',
+      mark: '',
       columns: [
+        {
+          type: 'index',
+          width: 60,
+          align: 'center'
+        },
         {
           title: '类型名',
           key: 'name'
@@ -41,7 +48,7 @@ export default {
                     this.handleDel(params.row.id)
                   }
                 }
-              }, '编辑')
+              }, '删除')
             ])
           }
         }
@@ -63,18 +70,42 @@ export default {
     handleAdd () {
       this.$Modal.confirm({
         render: (h) => {
-          return h('Input', {
-            props: {
-              value: this.value,
-              autofocus: true,
-              placeholder: '请输入新分类名字'
-            }
-          })
+          return h('div', [
+            h('Input', {
+              props: {
+                value: this.value,
+                autofocus: true,
+                placeholder: '请输入新分类名字'
+              },
+              on: {
+                input: (val) => {
+                  this.value = val
+                }
+              }
+            }),
+            h('Input', {
+              props: {
+                value: this.mark,
+                autofocus: true,
+                placeholder: '请输入新分类标识'
+              },
+              on: {
+                input: (val) => {
+                  this.mark = val
+                }
+              }
+            })
+          ])
         },
         onOk: () => {
-          articleApi.getCategoryList().then(res => {
+          let params = new FormData()
+          params.append('name', this.value)
+          params.append('type', this.mark)
+          articleApi.addCategory(params).then(res => {
+            this.$Message.info('Clicked ok')
+          }, err => {
+            this.$Message.error(err)
           })
-          this.$Message.info('Clicked ok')
         },
         onCancel: () => {
           this.$Message.info('取消')
@@ -82,7 +113,15 @@ export default {
       })
     },
     handleSave () {},
-    handleDel (id) {}
+    handleDel (id) {
+      console.log(id)
+      articleApi.delCategory(id).then(res => {
+        this.$Message.info('删除成功')
+        this.getList()
+      }, err => {
+        this.$Message.error(err)
+      })
+    }
   }
 }
 </script>
